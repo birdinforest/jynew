@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.013819081, g: 0.063610874, b: 0.1712569, a: 1}
+  m_IndirectSpecularColor: {r: 0.013683908, g: 0.06396839, b: 0.17118049, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2512,6 +2512,7 @@ Transform:
   - {fileID: 1962704693}
   - {fileID: 488555047}
   - {fileID: 7332938711560063718}
+  - {fileID: 1342979864}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31364,6 +31365,91 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1342488947}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1342979863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1342979864}
+  - component: {fileID: 1342979866}
+  - component: {fileID: 1342979865}
+  m_Layer: 0
+  m_Name: PrecipitationSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1342979864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342979863}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.8682833, y: 0.96270394, z: 15.716551}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 173614895}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1342979865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342979863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42afcaea65c6b4d8e8ced712181554e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSize: 10
+  playerTransform: {fileID: 1373338663}
+--- !u!114 &1342979866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342979863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24de4803ff1d4372a915aedc046ce81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RainShader: {fileID: 0}
+  SnowShader: {fileID: 0}
+  mainTexture: {fileID: 2800000, guid: 0b5b96b5ca4684d4aa8c6873c04e48f0, type: 3}
+  noiseTexture: {fileID: 2800000, guid: 52551c0cd0b744be68b97d575b414636, type: 3}
+  windStrength: 0
+  windYRotation: 0
+  meshSubdivisions: 200
+  rain:
+    amount: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+    colorVariation: {r: 1, g: 1, b: 1, a: 1}
+    fallSpeed: 3
+    cameraRange: {x: 0, y: 15}
+    flutterFrequency: {x: 0.988, y: 1.234}
+    flutterSpeed: {x: 0.01, y: 0.01}
+    flutterMagnitude: {x: 0.35, y: 0.25}
+    sizeRange: {x: 0.5, y: 1}
+  snow:
+    amount: 0.223
+    color: {r: 1, g: 1, b: 1, a: 1}
+    colorVariation: {r: 1, g: 1, b: 1, a: 1}
+    fallSpeed: 0.25
+    cameraRange: {x: 0, y: 10}
+    flutterFrequency: {x: 0.988, y: 1.234}
+    flutterSpeed: {x: 1, y: 0.5}
+    flutterMagnitude: {x: 0.35, y: 0.25}
+    sizeRange: {x: 0.05, y: 0.025}
 --- !u!1001 &1346529906
 PrefabInstance:
   m_ObjectHideFlags: 0
