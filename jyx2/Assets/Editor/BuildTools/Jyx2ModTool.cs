@@ -115,7 +115,8 @@ namespace Jyx2Editor.BuildTool
                 EditorUtility.DisplayDialog("提示", msg, "确定");
                 return;
             }
-            var allBundles = AssetDatabase.GetAllAssetBundleNames().ToHashSet();
+            var allBundles = System.Linq.Enumerable.ToHashSet(AssetDatabase.GetAllAssetBundleNames());
+            // var allBundles = Sirenix.Utilities.LinqExtensions.ToHashSet(AssetDatabase.GetAllAssetBundleNames());
             var modId = config.ModId.ToLower();
             var mapBundleName = GetModMapBundleName(modId);
             var modBundleName = GetModMainBundleName(modId);
