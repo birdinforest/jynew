@@ -48,6 +48,7 @@ MonoBehaviour:
     - UniRx.Examples
     - Purchasing.Common
     - Auxiliary
+    - NavMeshComponents
     - UniTask.Addressables
     - Sirenix.OdinInspector.CompatibilityLayer
     - UniTask.TextMeshPro
@@ -55,6 +56,7 @@ MonoBehaviour:
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - UniTask.Editor
     - Analytics
+    - NavMeshComponentsEditor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
