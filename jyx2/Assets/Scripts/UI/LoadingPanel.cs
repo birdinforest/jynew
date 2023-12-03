@@ -46,17 +46,18 @@ public class LoadingPanel : MonoBehaviour
     /// </summary>
     /// <param name="scenePath">为null则返回主菜单</param>
     /// <returns></returns>
-    public static async UniTask Create(string scenePath)
+    public static async UniTask<bool> Create(string scenePath)
     {
         var loadingPanel = Jyx2ResourceHelper.CreatePrefabInstance("LoadingPanelCanvas").GetComponent<LoadingPanel>();
         GameObject.DontDestroyOnLoad(loadingPanel);
-        await loadingPanel.LoadLevel(scenePath);
+        var isSuccess = await loadingPanel.LoadLevel(scenePath);
         Destroy(loadingPanel.gameObject);
+        return isSuccess;
     }
 
     public Text m_LoadingText;
 
-    public async UniTask LoadLevel(string scenePath)
+    public async UniTask<bool> LoadLevel(string scenePath)
     {
         Jyx2_UIManager.Instance.HideAllUI();
         gameObject.SetActive(true);
@@ -72,12 +73,14 @@ public class LoadingPanel : MonoBehaviour
                 m_LoadingText.text = "载入中…… ".GetContent(nameof(LoadingPanel)) + (int)(handle.progress * 100) + "%";
                 await UniTask.WaitForEndOfFrame();
             }
+            return true;
         }
         //切换场景
         else
         {
             m_LoadingText.text = "载入中... ";
-            await ResLoader.LoadScene(scenePath);
+            var isSuccess = await ResLoader.LoadScene(scenePath);
+            return isSuccess;
         }
     }
 }

@@ -28,10 +28,24 @@ namespace Jyx2
 
         static async UniTask DoLoad(LMapConfig map, Action callback)
         {
+            var currentMapCache = LevelMaster.GetCurrentGameMap();
             LevelMaster.SetCurrentMap(map);
-            await LoadingPanel.Create($"Assets/Maps/GameMaps/{map.MapScene}.unity");
+            var isSuccess = await LoadingPanel.Create($"Assets/Maps/GameMaps/{map.MapScene}.unity");
             await UniTask.WaitForEndOfFrame();
             callback?.Invoke();
+            if (isSuccess)
+            {
+                // Somehow if the current map is updated after loading done, the camera doesn't follow the player.
+                // So that we need to update the current map before loading, and reset it if loading failed.
+                // TODO: Debug the camera following issue and update current map after loading done.
+                
+                // LevelMaster.SetCurrentMap(map);
+            }
+            else
+            {
+                Debug.LogError("Loading failed. Reset current map.");
+                LevelMaster.SetCurrentMap(currentMapCache);
+            }
         }
         
         //加载战斗

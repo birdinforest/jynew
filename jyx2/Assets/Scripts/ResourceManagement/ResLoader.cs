@@ -210,23 +210,33 @@ namespace Jyx2.ResourceManagement
         }
 
 
-        public static async UniTask LoadScene(string path)
+        public static async UniTask<bool> LoadScene(string path)
         {
             if (IsEditor())
             {
-                await LoadSceneInEditor(path);
-                return;
+                var isSuccess = await LoadSceneInEditor(path);
+                return isSuccess;
             }
 
             path = path.ToLower();
             if (_scenesMap.ContainsKey(path))
             {
-                await SceneManager.LoadSceneAsync(_scenesMap[path].Item2);
-                await UniTask.WaitForEndOfFrame();
+                try
+                {
+                    await SceneManager.LoadSceneAsync(_scenesMap[path].Item2);
+                    await UniTask.WaitForEndOfFrame();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                    return false;
+                }
             }
             else
             {
                 Debug.LogError($"不存在的scene：{path}");
+                return false;
             }
         }
 
@@ -319,19 +329,41 @@ namespace Jyx2.ResourceManagement
         }
         #endif
 
-        private static async UniTask LoadSceneInEditor(string path)
+        /// <summary>
+        /// Load scene in Editor mode.
+        /// TODO: It seems that it returns after the first success. Not sure if it is a bug or not.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private static async UniTask<bool> LoadSceneInEditor(string path)
         {
             #if UNITY_EDITOR
             path = ToAssetPath(path);
+
             foreach (var fixedUri in GetFixedModPath(path))
             {
                 if (File.Exists(fixedUri))
                 {
-                    await EditorSceneManager.LoadSceneAsyncInPlayMode(fixedUri,
-                        new LoadSceneParameters() {loadSceneMode = LoadSceneMode.Single});
-                    return;
+                    try
+                    {
+                        await EditorSceneManager.LoadSceneAsyncInPlayMode(fixedUri,
+                            new LoadSceneParameters() {loadSceneMode = LoadSceneMode.Single});
+                        return true;
+                    } 
+                    catch (Exception e)
+                    {
+                        Debug.LogError(e);
+                        return false;
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"{path} is not exist");
+                    return false;
                 }
             }
+
+            return false;
             #endif
         }
         #endregion
